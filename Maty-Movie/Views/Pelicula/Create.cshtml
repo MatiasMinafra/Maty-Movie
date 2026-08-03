@@ -1,0 +1,106 @@
+﻿@model Maty_Movie.Models.Pelicula
+
+@{
+    ViewData["Title"] = "Crear película";
+}
+
+<div style="max-width: 700px;">
+
+    <h1>Crear</h1>
+    <h4>Película</h4>
+    <hr />
+
+    <form asp-action="Create" method="post">
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="mb-3">
+            <label asp-for="Titulo" class="form-label"></label>
+            <input asp-for="Titulo" class="form-control" />
+            <span asp-validation-for="Titulo" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Sinopsis" class="form-label"></label>
+            <input asp-for="Sinopsis" class="form-control" />
+            <span asp-validation-for="Sinopsis" class="text-danger"></span>
+        </div>
+
+        <div class="row mb-3">
+
+            <div class="col-md-6">
+                <label asp-for="FechaLanzamiento" class="form-label"></label>
+                <input asp-for="FechaLanzamiento"
+                       type="date"
+                       class="form-control" />
+
+                <span asp-validation-for="FechaLanzamiento"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="MinutosDuracion" class="form-label"></label>
+                <input asp-for="MinutosDuracion"
+                       class="form-control" />
+
+                <span asp-validation-for="MinutosDuracion"
+                      class="text-danger"></span>
+            </div>
+
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="PosterUrlPortada" class="form-label"></label>
+            <input asp-for="PosterUrlPortada" class="form-control" />
+            <span asp-validation-for="PosterUrlPortada"
+                  class="text-danger"></span>
+        </div>
+
+        <div class="row mb-3">
+
+            <div class="col-md-6">
+                <label asp-for="GeneroId" class="form-label">Género</label>
+
+                <select asp-for="GeneroId"
+                        class="form-select"
+                        asp-items="ViewBag.GeneroId">
+                </select>
+
+                <span asp-validation-for="GeneroId"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="PlataformaId"
+                       class="form-label">Plataforma</label>
+
+                <select asp-for="PlataformaId"
+                        class="form-select"
+                        asp-items="ViewBag.PlataformaId">
+                </select>
+
+                <span asp-validation-for="PlataformaId"
+                      class="text-danger"></span>
+            </div>
+
+        </div>
+
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary">
+                Crear
+            </button>
+        </div>
+
+    </form>
+
+    <div>
+        <a asp-action="Index">Volver al listado</a>
+    </div>
+
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

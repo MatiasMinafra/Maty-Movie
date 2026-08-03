@@ -1,0 +1,102 @@
+﻿@model IEnumerable<Maty_Movie.Models.Pelicula>
+
+@{
+    ViewData["Title"] = "Películas";
+}
+
+<h1>Películas</h1>
+
+<p>
+    <a asp-action="Create">Crear nueva película</a>
+</p>
+
+<table id="tablaPeliculas" class="table display">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Titulo)
+            </th>
+            <th>
+                Portada
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Genero)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Plataforma)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PromedioRating)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Titulo)
+                </td>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.PosterUrlPortada))
+                    {
+                        <a href="@item.PosterUrlPortada"
+                           target="_blank"
+                           rel="noopener noreferrer">
+
+                            <img src="@item.PosterUrlPortada"
+                                 alt="Portada de @item.Titulo"
+                                 style="width: 100px;
+                                                height: 150px;
+                                                object-fit: cover;
+                                                border-radius: 5px;" />
+                        </a>
+                    }
+                    else
+                    {
+                        <span>Sin imagen</span>
+                    }
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Genero.Descripcion)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Plataforma.Nombre)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.PromedioRating)
+                </td>
+
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Detalles</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#tablaPeliculas').DataTable({
+                language: {
+                    url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
+                },
+                pageLength: 10,
+                order: [[1, 'asc']],
+                columnDefs: [
+                    { orderable: false, targets: [0, 4] }
+                ]
+            });
+        });
+    </script>
+}
